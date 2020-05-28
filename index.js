@@ -24,8 +24,19 @@ var contactList=[
 
 app.get('/', (request, response) =>
 {
-    console.log(request.url);
-    return response.render('home', {title:"rendered"});
+    return response.render('home', {
+        title:"rendered",
+        contact_list:contactList,
+    });
+});
+app.get('/added_contact', (req, res)=>
+{
+    return res.render('added_contact', {});
+});
+
+app.post('/create-contact', (request, response)=>
+{
+    return response.redirect('/added_contact')
 });
 
 app.listen(port, (error) =>

@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= locals.title %></title>
 </head>
+
 <body>
     <h1>this page is rendered using express</h1>
+    <div>
+        <ul>
+            <% for(let i of locals.contact_list){ %>
+                <li><%= i.name %>&nbsp<%= i.phone %></li>
+            <%}%>
+        </ul>
+    </div>
+    <form action="/create-contact" method="post">
+        <input type="text" name="name" placeholder="name" required>
+        <input type="number" name="phone" placeholder="phone" required>
+        <button type="submit">Add contact</button>
+    </form>
 </body>
 </html>
