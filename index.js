@@ -6,6 +6,12 @@ const app = express();
 
 app.set( 'view engine', 'ejs' );
 app.set( 'views', path.join(__dirname, 'views') );
+app.use(express.urlencoded());
+
+
+
+
+
 
 var contactList=[
     {
@@ -22,6 +28,11 @@ var contactList=[
     }
 ]
 
+
+
+
+
+
 app.get('/', (request, response) =>
 {
     return response.render('home', {
@@ -36,8 +47,16 @@ app.get('/added_contact', (req, res)=>
 
 app.post('/create-contact', (request, response)=>
 {
-    return response.redirect('/added_contact')
+    contactList.push({name:request.body.name, phone:request.body.phone});
+    return response.redirect('back');
 });
+
+
+
+
+
+
+
 
 app.listen(port, (error) =>
 {
