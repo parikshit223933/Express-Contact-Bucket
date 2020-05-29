@@ -70,6 +70,7 @@ app.listen(port, (error) =>
 const express=require('express');
 const port=8000;
 const path=require('path');
+const db=require('./config/mongoose');
 
 const app=express();
 
