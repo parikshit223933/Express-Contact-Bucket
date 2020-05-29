@@ -9,3 +9,12 @@
 5. Open your preferred web browser and go to `https://localhost:8000`.
 
 Please make sure that you are connected to the internet for a better visual experience. Another reason is that this app uses fonts from google.
+
+# Features
+1. Add a Contact
+2. Remove a contact
+
+These contacts will be saved in a MongoDB DataBase.
+
+# Screenshots
+<img src="./assets/repo resources/sc.PNG">
