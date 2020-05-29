@@ -1,6 +1,12 @@
-var a_tag = document.getElementsByTagName('a')[0];
-if (a_tag != undefined)
-    a_tag.addEventListener('click', (event) =>
+var a_tags = document.getElementsByTagName('a');
+if (a_tags[0] != undefined)
+{
+    for (let a_tag of a_tags)
     {
-        window.alert('Are you sure you want to delete this contact?');
-    });
+        a_tag.addEventListener('click', (event) =>
+        {
+            window.alert('Are you sure you want to delete this contact?');
+        });
+    }
+}
+

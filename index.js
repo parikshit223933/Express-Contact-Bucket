@@ -90,7 +90,6 @@ app.get('/', (req, res)=>
 });
 app.get('/delete-contact/:phone', (req, res)=>
 {
-    console.log(req.params);
     let phone=req.params.phone;
     let required_contact_index=contactList.findIndex((contact)=>
     {   
