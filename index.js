@@ -88,6 +88,20 @@ app.get('/', (req, res)=>
     };
     return res.render('home', options);
 });
+app.get('/delete-contact/:phone', (req, res)=>
+{
+    console.log(req.params);
+    let phone=req.params.phone;
+    let required_contact_index=contactList.findIndex((contact)=>
+    {   
+        return contact.phone==phone;
+    });
+    if(required_contact_index!=-1)
+    {
+        contactList.splice(required_contact_index, 1)
+    }
+    return res.redirect('back');
+});
 app.post('/create-contact', (req, res)=>
 {
     contactList.push(req.body);
