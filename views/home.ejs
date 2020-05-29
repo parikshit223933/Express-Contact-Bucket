@@ -5,21 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= locals.title %></title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital@1&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./css/home.css">
+
+    <script src="https://kit.fontawesome.com/2d9b67a497.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <h1>Contact List</h1>
+    <h1 id="page-heading">
+        <i class="fa fa-address-book" aria-hidden="true"></i>
+        My Contact List
+    </h1>
     <form action="/create-contact" method="post">
-        <input type="text" name="name" placeholder="name" required>
-        <input type="number" name="phone" placeholder="phone" required>
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="number" name="phone" placeholder="Phone" required>
         <button type="submit">Add contact</button>
     </form>
-    <div>
+    <div id="contact-list">
         <ul>
             <% for(let i of locals.contact_list){ %>
-            <li><%= i.name %>&nbsp<%= i.phone %></li>
+            <li>
+                <div><i class="fas fa-user-alt"></i> <%= i.name %></div>
+                <div><%= i.phone %></div>
+            </li>
             <%}%>
         </ul>
     </div>
