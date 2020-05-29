@@ -67,50 +67,79 @@ app.listen(port, (error) =>
 
 
 
-const express=require('express');
-const port=8000;
-const path=require('path');
-const db=require('./config/mongoose');
+const express = require('express');
+const port = 8000;
+const path = require('path');
+const db = require('./config/mongoose');
+const Contact = require('./models/contact');
 
-const app=express();
+const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static('assets'));
 
-var contactList=[];
+var contactList = [];
 
-app.get('/', (req, res)=>
+app.get('/', (req, res) =>
 {
-    var options={
-        title:"Contact List",
-        contact_list:contactList
-    };
-    return res.render('home', options);
-});
-app.get('/delete-contact/:phone', (req, res)=>
-{
-    let phone=req.params.phone;
-    let required_contact_index=contactList.findIndex((contact)=>
-    {   
-        return contact.phone==phone;
+    Contact.find({}, (error, contacts) =>
+    {
+        if (error)
+        {
+            console.log('there was an error in fetching contacts from the database!');
+            return;
+        }
+        var options = {
+            title: "Contact List",
+            contact_list: contacts
+        };
+        return res.render('home', options);
     });
-    if(required_contact_index!=-1)
+
+
+});
+app.get('/delete-contact/:id', (req, res) =>
+{
+    let id = req.params.id;
+    Contact.findByIdAndDelete(id, (error) =>
+    {
+        if (error)
+        {
+            console.log("error in deleting a contact from database!");
+            return;
+        }
+        return res.redirect('back');
+    });
+
+    /* let required_contact_index = contactList.findIndex((contact) =>
+    {
+        return contact.phone == phone;
+    });
+    if (required_contact_index != -1)
     {
         contactList.splice(required_contact_index, 1)
-    }
-    return res.redirect('back');
+    } */
 });
-app.post('/create-contact', (req, res)=>
+app.post('/create-contact', (req, res) =>
 {
-    contactList.push(req.body);
-    return res.redirect('back');
+    // contactList.push(req.body);
+    Contact.create(req.body, (error, newContact) =>
+    {
+        if (error)
+        {
+            console.log('error in creating a contact!');
+            return;
+        }
+        console.log('*********', newContact);
+        return res.redirect('back');
+    });
 });
 
-app.listen(port, (error)=>
+app.listen(port, (error) =>
 {
-    if(error)
+    if (error)
     {
         console.log("there was some error in starting the server");
         return;

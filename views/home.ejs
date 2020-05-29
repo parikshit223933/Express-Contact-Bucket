@@ -27,7 +27,7 @@
             <% for(let i of locals.contact_list){ %>
             <li>
                 <div>
-                    <a href="/delete-contact/<%= i.phone %>">
+                    <a href="/delete-contact/<%= i._id %>">
                         <i class="far fa-times-circle"></i>
                     </a> <%= i.name %>
                 </div>
